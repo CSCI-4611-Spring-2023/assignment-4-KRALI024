@@ -79,9 +79,14 @@ export class Bone extends gfx.Transform3
          * the axes that represent the hands of the two dancers should line up properly when
          * the couple is dancing together.
          */
-  
+        const currentPose: gfx.Quaternion = pose.getJointRotation(this.name); 
+        this.position.rotate(this.rotationToBoneSpace);
+        this.rotation = currentPose;
 
-        
+        this.children.forEach((child) => {
+            if(child instanceof Bone)
+                this.update(pose);
+        });
     }
 
     resetTransform(): void

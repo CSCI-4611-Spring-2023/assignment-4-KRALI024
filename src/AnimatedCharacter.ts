@@ -73,10 +73,16 @@ export class AnimatedCharacter extends gfx.Transform3
         
 
         // TO DO (PART 1): Draw the coordinate axes for the bone
-        
+        // const axes = new gfx.Axes3(1);
+        // axes.lookAt(bone.direction);
+        // axes.translateZ(-bone.length);
+        // this.add(axes);
+
+        const axes = new gfx.Axes3(0.15);
+        this.skeleton.add(axes);
 
 
-         // TO DO (PART 3): You will want to draw something different for each
+        // TO DO (PART 3): You will want to draw something different for each
         // part of the body. An if statement like this is an easy way
         // to do that.  You can find the names of additional bones in 
         // the .asf files.  Anything that you create will be automatically
@@ -87,13 +93,19 @@ export class AnimatedCharacter extends gfx.Transform3
         // else if(bone.name == 'upperback')
         // {
         // }
-
-
+        if (bone.name == 'head') 
+        {
+            bone.length = 0.05;
+            bone.direction.set(1, 0, 0);
+            bone.direction.normalize();
+            this.skeleton.add(bone);
+        }
 
         // TO DO (PART 1): Recursively call this function for each of the bone's children
-
-  
-
+        this.skeleton.children.forEach((child: gfx.Transform3) => {
+            if(child instanceof Bone)
+                this.createMeshesRecursive(child);
+        });
     }
 
     
