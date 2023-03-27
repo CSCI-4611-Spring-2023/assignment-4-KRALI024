@@ -151,8 +151,10 @@ export class DanceApp extends gfx.GfxApp
         // other .amc files, go to http://mocap.cs.cmu.edu, enter the subject number, and
         // then click the search button.  For example, if you search for subject 05, you
         // will find that there are a total of 20 difference motion clips to choose from.
-
-
+        this.balletDanceMotions.push(this.balletAnt.loadMotionClip('./assets/data/05_10.amc'));
+        this.balletDanceMotions.push(this.balletAnt.loadMotionClip('./assets/data/05_09.amc'));
+        this.balletDanceMotions.push(this.balletAnt.loadMotionClip('./assets/data/05_20.amc'));
+        this.balletDanceMotions.push(this.balletAnt.loadMotionClip('./assets/data/05_06.amc'));
     }
 
     startAnimations(): void
@@ -180,8 +182,26 @@ export class DanceApp extends gfx.GfxApp
         // TO DO (PART 4): You will need to trim the new animations you have
         // added to isolate the interesting portions of the motion.  You can
         // then add them similarly to the first ballet dance motion.
-        
 
+        // 05_10.amc
+        const balletOne = this.balletDanceMotions[1];
+        balletOne.trimFront(200);
+        balletOne.trimBack(200);
+
+        // 05_09.amc
+        const balletTwo = this.balletDanceMotions[2];
+        balletTwo.trimFront(200);
+        balletTwo.trimBack(200);
+
+        // 05_20.amc
+        const balletThr = this.balletDanceMotions[3];
+        balletThr.trimFront(200);
+        balletThr.trimBack(200);
+
+        // 05_06.amc
+        const balletFor = this.balletDanceMotions[4];
+        balletFor.trimFront(200);
+        balletFor.trimBack(200);
 
         // Create the meshes for the animated characters
         this.salsaAntLead.createMeshes();
@@ -258,7 +278,8 @@ export class DanceApp extends gfx.GfxApp
 
 
         // TO DO (PART 4): Overlay the motion, similar to the call above
-
+        this.balletAnt.overlay(this.balletDanceMotions[1], 100);
+        console.log('Queueing ballet motion 2. Queue size is ' + this.balletAnt.getQueueCount() + '.');
 
     }
 
@@ -267,7 +288,8 @@ export class DanceApp extends gfx.GfxApp
 
 
         // TO DO (PART 4): Overlay the motion, similar to the call above
-        
+        this.balletAnt.overlay(this.balletDanceMotions[2], 100);
+        console.log('Queueing ballet motion 3. Queue size is ' + this.balletAnt.getQueueCount() + '.');
 
     }
 
@@ -276,7 +298,8 @@ export class DanceApp extends gfx.GfxApp
 
 
         // TO DO (PART 4): Overlay the motion, similar to the call above
-        
+        this.balletAnt.overlay(this.balletDanceMotions[3], 100);
+        console.log('Queueing ballet motion 4. Queue size is ' + this.balletAnt.getQueueCount() + '.');
 
     }
 
@@ -285,7 +308,8 @@ export class DanceApp extends gfx.GfxApp
 
 
         // TO DO (PART 4): Overlay the motion, similar to the call above
-        
+        this.balletAnt.overlay(this.balletDanceMotions[4], 100);
+        console.log('Queueing ballet motion 5. Queue size is ' + this.balletAnt.getQueueCount() + '.');
 
     }
 }

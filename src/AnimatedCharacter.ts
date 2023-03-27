@@ -79,8 +79,9 @@ export class AnimatedCharacter extends gfx.Transform3
         // this.add(axes);
 
         const axes = new gfx.Axes3(0.15);
-        this.skeleton.add(axes);
-
+        axes.lookAt(bone.direction);
+        axes.translateZ(-bone.length);
+        this.add(axes);
 
         // TO DO (PART 3): You will want to draw something different for each
         // part of the body. An if statement like this is an easy way
@@ -95,21 +96,177 @@ export class AnimatedCharacter extends gfx.Transform3
         // }
         if (bone.name == 'head') 
         {
-            bone.length = 0.05;
-            bone.direction.set(1, 0, 0);
-            bone.direction.normalize();
-            this.skeleton.add(bone);
+            const headBone = new gfx.SphereMesh();
+            headBone.scale.multiply(new gfx.Vector3(0.1, 0.1, 0.2))
+            headBone.material.setColor(new gfx.Color(0.7, 0.2, 0.1));
+            headBone.translateY(0.1);
+            headBone.rotateX(45)
+            bone.add(headBone);
+
+            const reye = new gfx.SphereMesh(0.03, 0.03);
+            reye.translate(new gfx.Vector3(0.05, 0.2, 0));
+            reye.material.setColor(new gfx.Color(0, 0, 0));
+            bone.add(reye);
+
+            const leye = new gfx.SphereMesh(0.03, 0.03);
+            leye.translate(new gfx.Vector3(-0.05, 0.2, 0));
+            leye.material.setColor(new gfx.Color(0, 0, 0));
+            bone.add(leye);
+
+            const lantenna = new gfx.BoxMesh(0.01, 0.25, 0.01);
+            lantenna.material.setColor(new gfx.Color(0, 0, 0));
+            lantenna.translate(new gfx.Vector3(0.05, 0.3, -0.05));
+            bone.add(lantenna);
+
+            const rantenna = new gfx.BoxMesh(0.01, 0.25, 0.01);
+            rantenna.material.setColor(new gfx.Color(0, 0, 0));
+            rantenna.translate(new gfx.Vector3(-0.05, 0.3, -0.05));
+            bone.add(rantenna);
+
+            const lmandible = new gfx.SphereMesh(0.03, 0.03);
+            lmandible.material.setColor(new gfx.Color(0.7, 0.2, 0.1));
+            lmandible.translateY(-0.07);
+            lmandible.translateZ(0.1);
+            lmandible.translateX(-0.01);
+            bone.add(lmandible);
+
+            const rmandible = new gfx.SphereMesh(0.03, 0.03);
+            rmandible.material.setColor(new gfx.Color(0.7, 0.2, 0.1));
+            rmandible.translateY(-0.07);
+            rmandible.translateZ(0.1);
+            rmandible.translateX(0.01);
+            bone.add(rmandible);
+        }
+        else if (bone.name == 'upperneck')
+        {
+            const upperneck = new gfx.BoxMesh(0.025, 0.2, 0.025);
+            upperneck.translateY(0.02);
+            upperneck.material.setColor(new gfx.Color(0, 0, 0));
+            bone.add(upperneck);
+        }
+        else if (bone.name == 'lowerneck')
+        {
+            const lowerneck = new gfx.BoxMesh(0.025, 0.1, 0.025);
+            lowerneck.material.setColor(new gfx.Color(0, 0, 0));
+            bone.add(lowerneck);
+        }
+        else if (bone.name == 'lclavicle')
+        {
+            const lclavicle = new gfx.SphereMesh(0.1, 0.1);
+            bone.add(lclavicle);
+        }
+        else if (bone.name == 'rclavicle')
+        {
+            const rclavicle = new gfx.SphereMesh(0.1, 0.1);
+            bone.add(rclavicle);
+        }
+        // chest area 
+        else if (bone.name == 'thorax')
+        {
+            const thorax = new gfx.SphereMesh();
+            thorax.scale.multiply(new gfx.Vector3(0.25, 0.15, 0.1));
+            bone.add(thorax);
+        }
+        else if (bone.name == 'upperback')
+        {
+            const upperback = new gfx.SphereMesh();
+            upperback.scale.multiply(new gfx.Vector3(0.15, 0.15, 0.1));
+            bone.add(upperback)
+        }
+        else if (bone.name == 'lowerback')
+        {
+            const lowerback = new gfx.SphereMesh();
+            lowerback.scale.multiply(new gfx.Vector3(0.15, 0.15, 0.1));
+            bone.add(lowerback)
+        }
+        // arms and hands
+        else if (bone.name == 'lhumerus')
+        {
+            const lhumerus = new gfx.BoxMesh(0.25, 0.05, 0.05);
+            lhumerus.translate(new gfx.Vector3(-0.1, 0, 0.1));
+            bone.add(lhumerus);
+        }
+        else if (bone.name == 'rhumerus')
+        {
+            const rhumerus = new gfx.BoxMesh(0.25, 0.05, 0.05);
+            rhumerus.translate(new gfx.Vector3(0.1, 0, 0.1));
+    
+            bone.add(rhumerus);
+        }
+        else if (bone.name == 'lradius')
+        {
+            const lradius = new gfx.BoxMesh(0.25, 0.05, 0.05);
+            lradius.translate(new gfx.Vector3(0.05, 0, -0.05));
+            bone.add(lradius);
+        }
+        else if (bone.name == 'rradius')
+        {
+            const rradius = new gfx.BoxMesh(0.25, 0.05, 0.05);
+            rradius.translate(new gfx.Vector3(-0.05, 0, -0.05));
+            bone.add(rradius);
+        }
+        else if (bone.name == 'lfingers')
+        {
+            const lfingers = new gfx.BoxMesh(0.1, 0.1, 0.05);
+            lfingers.translate(new gfx.Vector3(0.15, 0.06, 0.13));
+            bone.add(lfingers);
+        }
+        else if (bone.name == 'rfingers')
+        {
+            const rfingers = new gfx.BoxMesh(0.1, 0.1, 0.05);
+            rfingers.translate(new gfx.Vector3(-0.15, 0.06, 0.13));
+            bone.add(rfingers);
+        }
+        else if (bone.name == 'lthumb')
+        {
+            const lthumb = new gfx.BoxMesh(0.1, 0.1, 0.1);
+            lthumb.translateX(0.15);
+            lthumb.translateY(0.1);
+            bone.add(lthumb);
+        }
+        else if (bone.name == 'rthumb')
+        {
+            const rthumb = new gfx.BoxMesh(0.1, 0.1, 0.1);
+            bone.add(rthumb);
         }
 
+        // legs
+        else if (bone.name == 'lfemur')
+        {
+            const lfemur = new gfx.BoxMesh(0.1, 0.1, 0.1);
+            bone.add(lfemur);
+        }
+        else if (bone.name == 'rfemur')
+        {
+            const rfemur = new gfx.BoxMesh(0.1, 0.1, 0.1);
+            bone.add(rfemur);
+        }
+        else if (bone.name == 'ltibia')
+        {
+            const ltibia = new gfx.BoxMesh(0.1, 0.1, 0.1);
+            bone.add(ltibia);
+        }
+        else if (bone.name == 'rtibia')
+        {
+            const rtibia = new gfx.BoxMesh(0.1, 0.1, 0.1);
+            bone.add(rtibia);
+        }
+        else if (bone.name == 'lfoot')
+        {
+            const lfoot = new gfx.BoxMesh(0.1, 0.1, 0.1);
+            bone.add(lfoot);
+        }
+        else if (bone.name == 'rfoot')
+        {
+            const lfoot = new gfx.BoxMesh(0.1, 0.1, 0.1);
+            bone.add(lfoot);
+        }
         // TO DO (PART 1): Recursively call this function for each of the bone's children
-        this.skeleton.children.forEach((child: gfx.Transform3) => {
-            if(child instanceof Bone)
-                this.createMeshesRecursive(child);
+        bone.children.forEach((childBone: gfx.Transform3) => {
+            if (childBone instanceof Bone)
+                this.createMeshesRecursive(childBone);
         });
     }
-
-    
-
 
     // You do not need to modify any code below this comment to complete the base assignment.
 
