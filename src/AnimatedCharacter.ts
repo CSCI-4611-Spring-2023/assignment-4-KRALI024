@@ -80,8 +80,8 @@ export class AnimatedCharacter extends gfx.Transform3
 
         const axes = new gfx.Axes3(0.15);
         axes.lookAt(bone.direction);
-        axes.translateZ(-bone.length);
-        this.add(axes);
+        // axes.translateZ(-bone.length);
+        bone.add(axes);
 
         // TO DO (PART 3): You will want to draw something different for each
         // part of the body. An if statement like this is an easy way
@@ -94,11 +94,13 @@ export class AnimatedCharacter extends gfx.Transform3
         // else if(bone.name == 'upperback')
         // {
         // }
+        const black = new gfx.Color(0,0,0);
+        const antColor = new gfx.Color(0.7, 0.2, 0.1)
         if (bone.name == 'head') 
         {
             const headBone = new gfx.SphereMesh();
             headBone.scale.multiply(new gfx.Vector3(0.1, 0.1, 0.2))
-            headBone.material.setColor(new gfx.Color(0.7, 0.2, 0.1));
+            headBone.material.setColor(antColor);
             headBone.translateY(0.1);
             headBone.rotateX(45)
             bone.add(headBone);
@@ -122,6 +124,18 @@ export class AnimatedCharacter extends gfx.Transform3
             rantenna.material.setColor(new gfx.Color(0, 0, 0));
             rantenna.translate(new gfx.Vector3(-0.05, 0.3, -0.05));
             bone.add(rantenna);
+
+            const lantennatip = new gfx.ConeMesh(0.02, 0.1);
+            lantennatip.material.setColor(black);
+            lantennatip.translate(new gfx.Vector3(0.05, 0.4, -0.01));
+            lantennatip.rotateX(90);
+            bone.add(lantennatip);
+
+            const rantennatip = new gfx.ConeMesh(0.02, 0.1);
+            rantennatip.material.setColor(black);
+            rantennatip.translate(new gfx.Vector3(-0.05, 0.4, -0.01));
+            rantennatip.rotateX(90);
+            bone.add(rantennatip);
 
             const lmandible = new gfx.SphereMesh(0.03, 0.03);
             lmandible.material.setColor(new gfx.Color(0.7, 0.2, 0.1));
@@ -153,11 +167,13 @@ export class AnimatedCharacter extends gfx.Transform3
         else if (bone.name == 'lclavicle')
         {
             const lclavicle = new gfx.SphereMesh(0.1, 0.1);
+            lclavicle.material.setColor(antColor);
             bone.add(lclavicle);
         }
         else if (bone.name == 'rclavicle')
         {
             const rclavicle = new gfx.SphereMesh(0.1, 0.1);
+            rclavicle.material.setColor(antColor);
             bone.add(rclavicle);
         }
         // chest area 
@@ -165,100 +181,125 @@ export class AnimatedCharacter extends gfx.Transform3
         {
             const thorax = new gfx.SphereMesh();
             thorax.scale.multiply(new gfx.Vector3(0.25, 0.15, 0.1));
+            thorax.material.setColor(antColor);
             bone.add(thorax);
         }
         else if (bone.name == 'upperback')
         {
             const upperback = new gfx.SphereMesh();
             upperback.scale.multiply(new gfx.Vector3(0.15, 0.15, 0.1));
+            upperback.material.setColor(antColor);
             bone.add(upperback)
         }
         else if (bone.name == 'lowerback')
         {
             const lowerback = new gfx.SphereMesh();
             lowerback.scale.multiply(new gfx.Vector3(0.15, 0.15, 0.1));
+            lowerback.material.setColor(antColor);
             bone.add(lowerback)
         }
         // arms and hands
         else if (bone.name == 'lhumerus')
         {
-            const lhumerus = new gfx.BoxMesh(0.25, 0.05, 0.05);
-            lhumerus.translate(new gfx.Vector3(-0.1, 0, 0.1));
+            const lhumerus = new gfx.BoxMesh(bone.length, 0.02, 0.02);
+            lhumerus.translate(new gfx.Vector3(-0.1, 0, 0.01));
+            lhumerus.material.setColor(black);
             bone.add(lhumerus);
         }
         else if (bone.name == 'rhumerus')
         {
-            const rhumerus = new gfx.BoxMesh(0.25, 0.05, 0.05);
-            rhumerus.translate(new gfx.Vector3(0.1, 0, 0.1));
-    
+            const rhumerus = new gfx.BoxMesh(bone.length, 0.02, 0.02);
+            rhumerus.translate(new gfx.Vector3(0.1, 0, 0.01));
+            rhumerus.material.setColor(black);
             bone.add(rhumerus);
         }
         else if (bone.name == 'lradius')
         {
-            const lradius = new gfx.BoxMesh(0.25, 0.05, 0.05);
-            lradius.translate(new gfx.Vector3(0.05, 0, -0.05));
+            const lradius = new gfx.BoxMesh(0.28, 0.02, 0.02);
+            lradius.material.setColor(black);
             bone.add(lradius);
         }
         else if (bone.name == 'rradius')
         {
-            const rradius = new gfx.BoxMesh(0.25, 0.05, 0.05);
-            rradius.translate(new gfx.Vector3(-0.05, 0, -0.05));
+            const rradius = new gfx.BoxMesh(0.28, 0.02, 0.02);
+            rradius.material.setColor(black);
             bone.add(rradius);
         }
         else if (bone.name == 'lfingers')
         {
-            const lfingers = new gfx.BoxMesh(0.1, 0.1, 0.05);
-            lfingers.translate(new gfx.Vector3(0.15, 0.06, 0.13));
+            const lfingers = new gfx.SphereMesh(0.03, 0.03);
+            lfingers.translate(new gfx.Vector3(0.01, 0, 0.01));
+            lfingers.material.setColor(black);
             bone.add(lfingers);
         }
         else if (bone.name == 'rfingers')
         {
-            const rfingers = new gfx.BoxMesh(0.1, 0.1, 0.05);
-            rfingers.translate(new gfx.Vector3(-0.15, 0.06, 0.13));
+            const rfingers = new gfx.SphereMesh(0.03, 0.03);
+            rfingers.translate(new gfx.Vector3(0.01, 0, -0.01));
+            rfingers.material.setColor(black);
             bone.add(rfingers);
         }
         else if (bone.name == 'lthumb')
         {
-            const lthumb = new gfx.BoxMesh(0.1, 0.1, 0.1);
-            lthumb.translateX(0.15);
-            lthumb.translateY(0.1);
+            const lthumb = new gfx.BoxMesh(0.05, 0.03, 0.03);
+            lthumb.material.setColor(black);
+            lthumb.translateX(0.04);
+            lthumb.translateZ(0.03);
             bone.add(lthumb);
         }
         else if (bone.name == 'rthumb')
         {
-            const rthumb = new gfx.BoxMesh(0.1, 0.1, 0.1);
-            bone.add(rthumb);
+            const rthumb = new gfx.BoxMesh(0.05, 0.03, 0.03);
+            rthumb.material.setColor(black);
+            rthumb.translateX(-0.04);
+            rthumb.translateZ(-0.03);
+            bone.add(rthumb)
         }
 
         // legs
         else if (bone.name == 'lfemur')
         {
-            const lfemur = new gfx.BoxMesh(0.1, 0.1, 0.1);
+            const lfemur = new gfx.BoxMesh(0.02, bone.length, 0.02);
+            lfemur.material.setColor(black);
+            lfemur.translate(new gfx.Vector3(-0.1, 0.3, 0));
+            lfemur.rotateZ(0.6);
             bone.add(lfemur);
         }
         else if (bone.name == 'rfemur')
         {
-            const rfemur = new gfx.BoxMesh(0.1, 0.1, 0.1);
+            const rfemur = new gfx.BoxMesh(0.02, bone.length*1.25, 0.02);
+            rfemur.material.setColor(black);
+            rfemur.translate(new gfx.Vector3(0.1, 0.3, 0));
+            rfemur.rotateZ(-0.6);
             bone.add(rfemur);
         }
         else if (bone.name == 'ltibia')
         {
-            const ltibia = new gfx.BoxMesh(0.1, 0.1, 0.1);
+            const ltibia = new gfx.BoxMesh(0.02, bone.length, 0.02);
+            ltibia.material.setColor(black);
+            ltibia.rotate(new gfx.Vector3(-0.7, 0, 0.3));
+            ltibia.translate(new gfx.Vector3(0, 0.2, 0.1));
             bone.add(ltibia);
         }
         else if (bone.name == 'rtibia')
         {
-            const rtibia = new gfx.BoxMesh(0.1, 0.1, 0.1);
+            const rtibia = new gfx.BoxMesh(0.02, bone.length*1.25, 0.02);
+            rtibia.material.setColor(black);
+            rtibia.rotate(new gfx.Vector3(-0.7, 0, 0));
+            rtibia.translate(new gfx.Vector3(0, 0.2, 0.1));
             bone.add(rtibia);
         }
         else if (bone.name == 'lfoot')
         {
-            const lfoot = new gfx.BoxMesh(0.1, 0.1, 0.1);
+            const lfoot = new gfx.BoxMesh(0.05, 0.05, 0.1);
+            lfoot.rotateX(0.1);
+            lfoot.material.setColor(black);
             bone.add(lfoot);
         }
         else if (bone.name == 'rfoot')
         {
-            const lfoot = new gfx.BoxMesh(0.1, 0.1, 0.1);
+            const lfoot = new gfx.BoxMesh(0.05, 0.05, 0.1);
+            lfoot.material.setColor(black);
             bone.add(lfoot);
         }
         // TO DO (PART 1): Recursively call this function for each of the bone's children

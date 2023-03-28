@@ -87,14 +87,15 @@ export class Bone extends gfx.Transform3
         //     if(child instanceof Bone)
         //         this.update(pose);
         // });
+        const currRotation = pose.getJointRotation(this.name);
         this.position.rotate(this.boneToRotationSpace);
-        this.position.rotate(pose.getJointRotation(this.name));
-        this.position.rotate(this.boneToRotationSpace);
+        this.position.rotate(currRotation);
+        this.position.rotate(this.rotationToBoneSpace);
 
         const newRotation = new gfx.Quaternion();
-        newRotation.multiply(this.rotationToBoneSpace);
-        newRotation.multiply(pose.getJointRotation(this.name));
-        newRotation.multiply(this.boneToRotationSpace);
+        newRotation.premultiply(this.boneToRotationSpace);
+        newRotation.premultiply(currRotation);
+        newRotation.premultiply(this.rotationToBoneSpace);
         this.rotation.copy(newRotation);
 
         this.children.forEach((child) => {
