@@ -275,18 +275,18 @@ export class AnimatedCharacter extends gfx.Transform3
         }
         else if (bone.name == 'ltibia')
         {
-            const ltibia = new gfx.BoxMesh(0.02, bone.length, 0.02);
+            const ltibia = new gfx.BoxMesh(0.02, bone.length*1.25, 0.02);
             ltibia.material.setColor(black);
             ltibia.rotate(new gfx.Vector3(-0.7, 0, 0.3));
-            ltibia.translate(new gfx.Vector3(0, 0.2, 0.1));
+            ltibia.translate(new gfx.Vector3(0, 0.2, 0.25));
             bone.add(ltibia);
         }
         else if (bone.name == 'rtibia')
         {
             const rtibia = new gfx.BoxMesh(0.02, bone.length*1.25, 0.02);
             rtibia.material.setColor(black);
-            rtibia.rotate(new gfx.Vector3(-0.7, 0, 0));
-            rtibia.translate(new gfx.Vector3(0, 0.2, 0.1));
+            rtibia.rotate(new gfx.Vector3(-0.7, 0, -0.3));
+            rtibia.translate(new gfx.Vector3(0, 0.2, 0.25));
             bone.add(rtibia);
         }
         else if (bone.name == 'lfoot')
