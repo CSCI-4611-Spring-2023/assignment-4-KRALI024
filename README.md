@@ -29,7 +29,7 @@ Third Party Assets: `None`
 
 Wizard Bonus Functionality: `Attempted to create more muscular ant models`
 
-Late Days: `1 for 3/28/2023`
+Late Days: `The prior commit stated that I was using a late day but that was before Professor Rosenberg's announcement and delaying of the deadline. Since I committed the code changes on 3/28/2023, a late day was not necessary. Sorry for the confusion.`
 
 ## Prerequisites
 
